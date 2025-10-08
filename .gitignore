@@ -12,3 +12,11 @@ __pycache__/
 
 # Other unnecessary files
 profiles/
+old_ids/
+photos/
+proofs/
+parent_ids
+hospital_proofs
+birth_photos
+# env
+.env
