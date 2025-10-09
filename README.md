@@ -1,248 +1,172 @@
- 
-# 🏢 Kebele Management System
+# 🏛️ Kebele Management System
 
-A Django-based API for managing **residents and admins** at a Kebele level.
-This system supports **user registration, authentication, and CRUD operations** using Django REST Framework and JWT.
+## 📘 Project Overview
+The **Kebele Management System** is a web-based application designed to streamline interactions between residents and kebele administrations in Ethiopia.  
+Kebeles are the smallest administrative units responsible for local services such as issuing **national IDs**, **birth certificates**, and other essential documents.
 
----
-
-## 🚀 Features
-
-The Kebele Management System is designed with both **Resident (user-facing)** and **Admin (staff-facing)** features.
-
-### ✅ Current Features (Implemented)
-
-* 🔐 **JWT Authentication** (login & token refresh).
-* 👥 **User CRUD** (register, view, update, delete).
-* 🧑‍💼 **Role-based access**:
-
-  * Residents can register and manage their own profiles.
-  * Admins can view all users.
-* 📸 **Profile picture upload** support.
-* ⚡ Built with **Django ORM** (no raw SQL).
+This system provides residents with convenient access to services like applying for or renewing IDs and obtaining birth certificates.  
+For administrators, it offers tools for managing applications, tracking service workflows, and sending notifications when documents are ready.  
+Overall, it reduces in-person visits, enhances operational efficiency, and improves transparency in local government services.
 
 ---
 
-### 🧑‍🤝‍🧑 User-Facing Features (Resident Portal)
+## 🌐 Features
 
-* **Service Information Hub**
+### 👥 User-Facing Features (Resident Portal)
 
-  * Guides for applying for services like:
+#### 🧭 Service Information Hub
+- Detailed guides on available services, including:
+  - Application procedures for a **new ID**.
+  - Renewal process for **existing IDs**.
+  - Steps to obtain **birth certificates**.
+- Information on **requirements** and **processing timelines** for each service.
 
-    * New/renewed IDs
-    * Birth, marriage, and death certificates
-  * Details on requirements, fees, and timelines
+#### 📝 Online Registration
+- Users can submit applications by providing personal details (name, address, contact info).
+- Upload required documents such as photos and proofs.
 
-* **Online Registration**
+#### ⏳ Status Tracking
+- Real-time updates on application status (e.g., `Pending Review`, `Rejected`, `Ready for Pickup`).
 
-  * Residents can apply for services by filling forms with personal details (name, address, contact info)
-  * Upload necessary documents (e.g., ID photos, proofs)
+#### 🔔 Notifications
+- Automated email notifications when:
+  - Documents are ready for pickup.
+  - Additional information is required.
 
-* **Application Status Tracking**
+#### 🔐 User Authentication
+- Secure **login/signup** using email or phone number.
+- Includes **password reset** functionality.
 
-  * Real-time updates (e.g., *Pending Review*, *In Process*, *Ready for Pickup*)
-
-* **Notifications**
-
-  * Alerts when documents are ready
-  * Requests for missing/extra information
-
-* **User Authentication**
-
-  * Secure signup/login via email or phone number
-  * Password reset functionality
-
-* **Search & FAQ**
-
-  * Searchable knowledge base for common questions
+#### 🔍 Search and FAQ
+- Searchable knowledge base for quick answers to common questions.
 
 ---
 
 ### 🧑‍💼 Admin-Facing Features (Kebele Dashboard)
 
-* **Dashboard Overview**
+#### 📊 Dashboard Overview
+- Displays metrics such as:
+  - Number of applications per service.
+  - Names of all applicants and their corresponding information/files.
 
-  * Track metrics: number of users, pending applications, completed services
+#### 🗃️ Application Management
+- View, review, approve, or reject applications.
 
-* **Application Management**
+#### 📧 User Notification System
+- Admins can send notifications via email (e.g., *“Your ID is ready – please visit the kebele office.”*).
 
-  * View/review/approve/reject applications
-  * Add notes or request more details from residents
+#### 📈 Reporting Tools
+- Generate reports on service usage:
+  - Daily/weekly registrations.
+  - Completion rates.
+  - User demographics.
 
-* **User Notification System**
-
-  * Send bulk or individual notifications (e.g., *Your ID is ready for pickup*)
-
-* **Reporting Tools**
-
-  * Generate reports on service usage (daily/weekly stats, demographics)
-
-* **Admin Authentication**
-
-  * Role-based access (super admins for kebele heads, staff for processing)
-
----
-
-### ⚙️ Functional Requirements
-
-#### 1. Users (Residents) — CRUD
-
-* **Create**: Register account (email, password, full name, phone, address, profile picture)
-* **Read**: Get profile and list applications
-* **Update**: Edit profile details
-* **Delete**: (Optional) soft-delete account
-
-#### 2. Admins — Pre-created Accounts
-
-* Seeded via admin panel or migration
-* Can manage any application (list, read, update, delete, assign officer)
-
-#### 3. Applications — CRUD
-
-* **Create**: Resident submits service application (type, fields, attachments)
-* **Read**: Resident + admins can view details
-* **Update**: Resident can edit *while Pending Review*; Admins can edit anytime
-* **Delete**: Residents can withdraw; Admins can remove if needed
-
-**Default status**: `Pending Review`
-**Statuses**: `Pending Review`, `Ready for Pickup`, `Rejected`
-
-#### 4. Dashboards
-
-* Resident dashboard: list of applications + statuses
-* Admin dashboard: filter applications by service, status, date
-
-#### 5. Notifications (undecided)
-
-* Notify residents on status changes (email/in-app)
-
-#### 6. Service Information Pages
-
-* Public endpoints listing available services, required documents, fees, timelines
-
+#### 🧑‍🔧 Admin Authentication
+- Role-based access control:
+  - **Super Admin** (for kebele heads)
+  - **Staff** (for processing tasks)
 
 ---
 
-## 🛠️ Tech Stack
-
-* **Backend**: Django, Django REST Framework
-* **Auth**: djangorestframework-simplejwt
-* **Database**: SQLite (dev) / PostgreSQL (prod-ready)
-* **Image Handling**: Pillow
+### ⚙️ General Features
+- **📱 Responsive Design**: Mobile-friendly for users with limited desktop access.
+- **🛡️ Security Measures**: Data encryption and audit logging for key actions.
 
 ---
 
-## ⚙️ Installation
+## 🧩 APIs and Technologies
 
-1. Clone the repo:
+### 🖥️ Backend API
+The backend is implemented as a **RESTful API** using:
+- **Python (Django + Django REST Framework)**
+- Versioned endpoints under `/api/v1/`
 
-   ```bash
-   git clone https://github.com/yourusername/kebele-management-system.git
-   cd kebele-management-system
-   ```
-
-2. Create & activate virtual environment:
-
-   ```bash
-   python -m venv venv
-   source venv/bin/activate     # Linux/Mac
-   venv\Scripts\activate        # Windows
-   ```
-
-3. Install dependencies:
-
-   ```bash
-   pip install -r requirements.txt
-   ```
-
-4. Apply migrations:
-
-   ```bash
-   python manage.py makemigrations
-   python manage.py migrate
-   ```
-
-5. Create superuser (for admin access):
-
-   ```bash
-   python manage.py createsuperuser
-   ```
-
-6. Run the server:
-
-   ```bash
-   python manage.py runserver
-   ```
+Two main modules:
+- **Authentication (users)**
+- **Applications (services)**
 
 ---
 
-## 🔑 API Endpoints
-
-Base URL: `http://127.0.0.1:8000/api/v1/auth/`
-
-### Auth
-
-* `POST /register/` → Register new user
-* `POST /login/` → Login & get JWT token
-* `POST /token/refresh/` → Refresh token
-
-### Users
-
-* `GET /users/` → List all users (**admin only**)
-* `GET /users/{id}/` → Get user by ID
-* `PATCH /users/{id}/` → Update user partially
-* `DELETE /users/{id}/` → Delete user
+### 🔑 Authentication Endpoints (`/api/v1/auth/`)
+| Method | Endpoint | Description |
+|--------|-----------|-------------|
+| `POST` | `/register/` | Register a new user |
+| `POST` | `/login/` | Obtain JWT access and refresh tokens |
+| `POST` | `/token/refresh/` | Refresh an expired access token |
+| `GET` | `/users/` | List all registered users (admin only) |
+| `GET` | `/users/<id>/` | Retrieve details of a specific user |
 
 ---
 
-## 🧪 Testing with Postman
-
-1. Register a user:
-
-   ```json
-   {
-     "username": "name",
-     "password": "mypassword",
-     "email": "name@example.com",
-     "full_name": "name name",
-     "phone_number": "0911223344",
-     "address": "Addis Ababa"
-   }
-   ```
-
-2. Login to get JWT token:
-
-   ```json
-   {
-     "username": "name",
-     "password": "mypassword"
-   }
-   ```
-
-   Response:
-
-   ```json
-   {
-     "refresh": "xxxx",
-     "access": "yyyy"
-   }
-   ```
-
-3. Use the **access token** in Postman → Headers:
-
-   ```
-   Authorization: Bearer <access_token>
-   ```
+### 🧾 Application Endpoints (`/api/v1/applications/`)
+| Method | Endpoint | Description |
+|--------|-----------|-------------|
+| `GET` | `/` | Retrieve a list of the current user’s applications (or all if admin) |
+| `POST` | `/` | Submit a new application (ID request, renewal, birth certificate) |
+| `PATCH` | `/<id>/` | Update an existing application (admins can change status and trigger email) |
+| `GET` | `/<id>/` | Retrieve detailed information for a specific application |
 
 ---
 
-## 🛤️ Roadmap
+## 💾 Database Models
+The system uses **SQLite** as the primary database during development  
+(with the option to migrate to **PostgreSQL** or **MySQL** for production).
 
-* [ ] CRUD for Services (e.g., certificates, documents)
-* [ ] Application model (residents apply for services)
-* [ ] Admin approval/rejection workflow
-* [ ] Unit tests for API endpoints
+Django ORM ensures consistency, validation, and relational integrity.
 
 ---
+
+### 🧍‍♂️ 1. User Model (`users.models.User`)
+Extends Django’s `AbstractUser`, supporting **role-based access**.
+
+**Fields:**
+- `id`: Primary key (auto-generated)
+- `username`: Unique identifier for login  
+- `email`: User’s email address  
+- `phone_number`: Contact phone number  
+- `role`: Defines user permissions (`resident`, `admin`)  
+- `date_joined`: Timestamp of registration  
+
+---
+
+### 📄 2. Application Model (`applications.models.Application`)
+Represents service requests such as **New ID**, **ID Renewal**, or **Birth Certificate**.
+
+**Fields:**
+- `user`: Foreign key (One-to-One) linked to the User model  
+- `application_type`: (`NEW_ID`, `ID_RENEWAL`, `BIRTH_CERTIFICATE`)  
+- `status`: (`PENDING`, `READY`, `REJECTED`)  
+- `full_name`, `dob`, `gender`, `resident_address`, `phone_number`  
+- **Attachments:**
+  - `photo`
+  - `residence_proof`
+  - `old_id_card`
+  - `hospital_proof`
+  - `parent_id`
+- `created_at`: Automatically set submission timestamp  
+
+---
+
+### 📬 3. Notification System
+- Notifications are handled dynamically using Django’s **email system** (`send_mail()`).
+- Example:  
+  > “Your ID is ready for pickup.”
+
+---
+
+## 🚀 Summary
+The **Kebele Management System** combines usability, efficiency, and transparency,  
+providing a modern digital solution to improve service delivery at the kebele level.  
+Residents stay informed through **real-time notifications**, while administrators benefit from **streamlined workflows** and **data-driven insights**.
+
+---
+
+### 🛠️ Tech Stack Summary
+- **Backend:** Django, Django REST Framework  
+- **Database:** SQLite (development), PostgreSQL/MySQL (production)  
+- **Authentication:** JWT  
+- **Email Notifications:** Django `send_mail()`  
+- **Deployment Options:** Heroku / PythonAnywhere  
+
 
 
