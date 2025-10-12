@@ -218,7 +218,46 @@ postman/kebele-management-system.postman_collection.json
 
 ---
 
-## ⚡ Installation & Setup
+## 🚀 Deployment (Render)
+
+The app is deployed on Render and is available at:
+
+**Live URL:** [https://kebele-management-api.onrender.com](https://kebele-management-api.onrender.com)
+
+- Make sure `ALLOWED_HOSTS` in `settings.py` includes your Render domain.
+- Static files have been collected using:
+
+```bash
+python manage.py collectstatic --noinput
+```
+## 🔧 Testing Endpoints on Render
+
+- Use Postman to test all endpoints:
+
+1. Import the Postman collection:
+```bash
+postman/kebele-management-system.postman_collection.json
+```
+
+2. Update the base URL to:
+```bash
+https://kebele-management-api.onrender.com
+```
+
+3. Test all API endpoints (User CRUD, Application CRUD) live.
+
+- Or use curl in terminal:
+```bash
+curl https://kebele-management-api.onrender.com/
+```
+
+- Should return:
+```bash
+{"message": "Kebele Management API is live!"}
+```
+---
+
+## ⚡ Installation & Setup (Local)
 
 1. Clone the repository:
 
