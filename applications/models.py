@@ -53,7 +53,7 @@ class Application(models.Model):
     null=True
 )
 
-    # Attachments (you can use FileField/ImageField)
+    # Attachments 
     photo = models.FileField(upload_to="applications/photos/", blank=True, null=True)
     residence_proof = models.FileField(upload_to="applications/proofs/", blank=True, null=True)
     old_id_card = models.FileField(upload_to="applications/old_ids/", blank=True, null=True)

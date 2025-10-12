@@ -1,0 +1,772 @@
+{
+	"info": {
+		"_postman_id": "3dd43cd6-054b-4d62-a916-6a332f6dc5de",
+		"name": "kebele-management-system",
+		"description": "This folder contains a **collection** for testing all API endpoints of the **Kebele Management System**.\n\n#### Included Endpoints:\n\n1. **User Management (CRUD)**\n    \n    - `POST /api/v1/auth/register/` – Create a new user\n        \n    - `GET /api/v1/users/` – List all users (admin only)\n        \n    - `GET /api/v1/users//` – Retrieve a specific user\n        \n    - `PATCH /api/v1/users//` – Update a user\n        \n    - `DELETE /api/v1/users//` – Delete a user (admin only)\n        \n2. **Application Management (CRUD)**\n    \n    - `POST /api/v1/applications/` – Submit a new application (ID, renewal, birth certificate)\n        \n    - `GET /api/v1/applications/` – List all applications (for logged-in user or admin)\n        \n    - `GET /api/v1/applications//` – Retrieve a specific application\n        \n    - `PATCH /api/v1/applications//` – Update an application (admins can change status and trigger email)\n        \n    - `DELETE /api/v1/applications//` – Delete an application (admin only)\n        \n\n#### Notes:\n\n- The collection can be imported directly into Postman for quick API testing.\n    \n- All requests are **pre-configured with JWT authentication** where required.\n    \n- Ideal for **manual testing** to explore the API without writing code.",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "40818167"
+	},
+	"item": [
+		{
+			"name": "USER CRUD",
+			"item": [
+				{
+					"name": "Create User w/o profile picture",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"username\": \"tefera\",\r\n  \"password\": \"tefera1212\",\r\n  \"email\": \"ayalewtefera84@gmail.com\",\r\n  \"full_name\": \"tefera girma\",\r\n  \"phone_number\": \"0911112211\",\r\n  \"address\": \"Addis Ababa\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:8000/api/v1/auth/register/",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"v1",
+								"auth",
+								"register",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create User with profile picture",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "username",
+									"value": "addisula",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "addisu1212",
+									"type": "text"
+								},
+								{
+									"key": "email",
+									"value": "addisula@example.com",
+									"type": "text"
+								},
+								{
+									"key": "full_name",
+									"value": "Addisu Lizard",
+									"type": "text"
+								},
+								{
+									"key": "phone_number",
+									"value": "0912229989",
+									"type": "text"
+								},
+								{
+									"key": "address",
+									"value": "Addis Ababa",
+									"type": "text"
+								},
+								{
+									"key": "profile_picture",
+									"type": "file",
+									"src": "/C:/Users/Mahid/Downloads/rango.png"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://127.0.0.1:8000/api/v1/auth/register/",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"v1",
+								"auth",
+								"register",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Single-User profile",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzYwMTY0MzgwLCJpYXQiOjE3NjAxNjI1ODAsImp0aSI6ImZlN2Y1NjM0Yjg0NTQ3ZDQ5Njc3MjQ0NjRkMTMzYWVmIiwidXNlcl9pZCI6IjEwIn0.K3qfzXckhHWO-IftIAvorTMovpJA-uxLJ7gptK7IWPQ",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:8000/api/v1/auth/users/10",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"v1",
+								"auth",
+								"users",
+								"10"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "User Login",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"username\": \"mahi\",\r\n  \"password\": \"mypassword123\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:8000/api/v1/auth/login/",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"v1",
+								"auth",
+								"login",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Single-User profile",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzYwMTY0MzgwLCJpYXQiOjE3NjAxNjI1ODAsImp0aSI6ImZlN2Y1NjM0Yjg0NTQ3ZDQ5Njc3MjQ0NjRkMTMzYWVmIiwidXNlcl9pZCI6IjEwIn0.K3qfzXckhHWO-IftIAvorTMovpJA-uxLJ7gptK7IWPQ",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"username\": \"addisu\",\r\n  \"email\": \"addisu1212@example.com\",\r\n  \"full_name\": \"addisu Updated\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:8000/api/v1/auth/users/10/",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"v1",
+								"auth",
+								"users",
+								"10",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get all-users (only for admins)",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzYwMTY0NDY5LCJpYXQiOjE3NjAxNjI2NjksImp0aSI6Ijk1YjM1NDI2NzZiZDQ3ZTViMDM4YTkyZmNjZDU2ZjI2IiwidXNlcl9pZCI6IjEifQ.H09drgSaRKoovPsdScBz8ro5bfsMCjqPf6cXcC9UYDk",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:8000/api/v1/auth/users/",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"v1",
+								"auth",
+								"users",
+								""
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "APPLICATION CRUD",
+			"item": [
+				{
+					"name": "Application for NEW_ID",
+					"item": [
+						{
+							"name": "Create application for NEW_ID",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzU5NzUwMTMxLCJpYXQiOjE3NTk3NDk4MzEsImp0aSI6IjJkNzQxNWI1MjY0MzRmZTI4MzQwZTNiZjhmNDg0ZTBiIiwidXNlcl9pZCI6IjYifQ.QoMKzfvQ1Q4P4ZA892RtgQ2y0b2RqluY752myPooIzw",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "application_type",
+											"value": "NEW_ID",
+											"type": "text"
+										},
+										{
+											"key": "full_name",
+											"value": "lala lala",
+											"type": "text"
+										},
+										{
+											"key": "dob",
+											"value": "2005-10-10",
+											"type": "text"
+										},
+										{
+											"key": "gender",
+											"value": "Female",
+											"type": "text"
+										},
+										{
+											"key": "blood_group",
+											"value": "A+",
+											"type": "text"
+										},
+										{
+											"key": "resident_address",
+											"value": "Addis Ababa, Kebele 05, House No.120",
+											"type": "text"
+										},
+										{
+											"key": "phone_number",
+											"value": "0911223344",
+											"type": "text"
+										},
+										{
+											"key": "emergency_contact_name",
+											"value": "lubu",
+											"type": "text"
+										},
+										{
+											"key": "emergency_contact_phone",
+											"value": "0911002233",
+											"type": "text"
+										},
+										{
+											"key": "photo",
+											"type": "file",
+											"src": "/C:/Users/Mahid/Downloads/rango.png"
+										},
+										{
+											"key": "residence_proof",
+											"type": "file",
+											"src": "/C:/Users/Mahid/Downloads/Hello.pdf"
+										}
+									]
+								},
+								"url": {
+									"raw": "http://127.0.0.1:8000/api/v1/applications/",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"api",
+										"v1",
+										"applications",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "users get their own application",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzU5NzUxOTMzLCJpYXQiOjE3NTk3NTE2MzMsImp0aSI6ImI2NDQyMzdjZGE3ODRjZTBhY2EwZjA0ZDUwODhkYzQ1IiwidXNlcl9pZCI6IjUifQ.daddequfMdc3ZGAAbPXVzqhOOA-qrKixNUxrdPuYkoo",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://127.0.0.1:8000/api/v1/applications/",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"api",
+										"v1",
+										"applications",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "admins get all applications",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzYwMTY0NDY5LCJpYXQiOjE3NjAxNjI2NjksImp0aSI6Ijk1YjM1NDI2NzZiZDQ3ZTViMDM4YTkyZmNjZDU2ZjI2IiwidXNlcl9pZCI6IjEifQ.H09drgSaRKoovPsdScBz8ro5bfsMCjqPf6cXcC9UYDk",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://127.0.0.1:8000/api/v1/applications/",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"api",
+										"v1",
+										"applications",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "admins get single application",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzYwMTY0NDY5LCJpYXQiOjE3NjAxNjI2NjksImp0aSI6Ijk1YjM1NDI2NzZiZDQ3ZTViMDM4YTkyZmNjZDU2ZjI2IiwidXNlcl9pZCI6IjEifQ.H09drgSaRKoovPsdScBz8ro5bfsMCjqPf6cXcC9UYDk",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://127.0.0.1:8000/api/v1/applications/4",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"api",
+										"v1",
+										"applications",
+										"4"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "admins change status",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzYwMTY0NDY5LCJpYXQiOjE3NjAxNjI2NjksImp0aSI6Ijk1YjM1NDI2NzZiZDQ3ZTViMDM4YTkyZmNjZDU2ZjI2IiwidXNlcl9pZCI6IjEifQ.H09drgSaRKoovPsdScBz8ro5bfsMCjqPf6cXcC9UYDk",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"status\": \"READY\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://127.0.0.1:8000/api/v1/applications/4/",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"api",
+										"v1",
+										"applications",
+										"4",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "user update their application",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzU5NzUxMDY3LCJpYXQiOjE3NTk3NTA3NjcsImp0aSI6IjQ0Nzg4OWY1ZTk4NjQyMGQ4ODJlYTliY2FhZDk4NTY3IiwidXNlcl9pZCI6IjYifQ.ejZQvcy4p7mmILsWa0SXLFkeXBTavcyzLyI3ALXMjhk",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"resident_address\": \"Addis Ababa, Kebele 07, House No. 50\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://127.0.0.1:8000/api/v1/applications/3/",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"api",
+										"v1",
+										"applications",
+										"3",
+										""
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Application for ID_RENEWAL",
+					"item": [
+						{
+							"name": "Create application for ID_RENEWAL",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzU5NzUzMTM0LCJpYXQiOjE3NTk3NTI4MzQsImp0aSI6ImQ4MWQ0YjYyMDM2ZDRhMzBiNmVjMTNlNzU3MGNjZGE2IiwidXNlcl9pZCI6IjcifQ.lhbBcYG4sz5mAHEP4-VTDVP8byxEQHPySkojlHpmn8Y",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "application_type",
+											"value": "ID_RENEWAL",
+											"type": "text"
+										},
+										{
+											"key": "existing_id_number",
+											"value": "ID123456",
+											"type": "text"
+										},
+										{
+											"key": "full_name",
+											"value": "Mahider Nardos",
+											"type": "text"
+										},
+										{
+											"key": "dob",
+											"value": "1998-05-20",
+											"type": "text"
+										},
+										{
+											"key": "resident_address",
+											"value": "Addis Ababa, Kebele 05, House No. 120",
+											"type": "text"
+										},
+										{
+											"key": "phone_number",
+											"value": "0911223344",
+											"type": "text"
+										},
+										{
+											"key": "reason_for_renewal",
+											"value": "Lost",
+											"type": "text"
+										},
+										{
+											"key": "old_id_card",
+											"type": "file",
+											"src": "/C:/Users/Mahid/Downloads/My First Board.jpg"
+										},
+										{
+											"key": "photo",
+											"type": "file",
+											"src": "/C:/Users/Mahid/Downloads/rango.png"
+										}
+									]
+								},
+								"url": {
+									"raw": "http://127.0.0.1:8000/api/v1/applications/",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"api",
+										"v1",
+										"applications",
+										""
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Application for BIRTH_CERTIFICATE",
+					"item": [
+						{
+							"name": "Create application for BIRTH_CERTIFICATE",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzU5OTE0NTU4LCJpYXQiOjE3NTk5MTQyNTgsImp0aSI6IjhmOTAzYjYzZTJmOTQwY2I5NTkyMGMyZTEwYTVhNjlmIiwidXNlcl9pZCI6IjgifQ.XDsHNfD-zMd_MSyETirm8P7QpHbZFrU3qkGZJJweBTc",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "application_type",
+											"value": "BIRTH_CERTIFICATE",
+											"type": "text"
+										},
+										{
+											"key": "child_full_name",
+											"value": "luna tesfaye",
+											"type": "text"
+										},
+										{
+											"key": "dob",
+											"value": "2023-05-10",
+											"type": "text"
+										},
+										{
+											"key": "place_of_birth",
+											"value": "Addis Ababa Hospital",
+											"type": "text"
+										},
+										{
+											"key": "gender",
+											"value": "Female",
+											"type": "text"
+										},
+										{
+											"key": "father_full_name",
+											"value": "Tesfaye Bekele",
+											"type": "text"
+										},
+										{
+											"key": "mother_full_name",
+											"value": "Saba Alemu",
+											"type": "text"
+										},
+										{
+											"key": "resident_address",
+											"value": "Addis Ababa, Kebele 05, House No. 120",
+											"type": "text"
+										},
+										{
+											"key": "phone_number",
+											"value": "0911223344",
+											"type": "text"
+										},
+										{
+											"key": "hospital_proof",
+											"type": "file",
+											"src": "/C:/Users/Mahid/Downloads/ENAT EDITED .pdf"
+										},
+										{
+											"key": "parent_id",
+											"type": "file",
+											"src": "/C:/Users/Mahid/Downloads/rango.png"
+										},
+										{
+											"key": "birth_certificate_photo",
+											"type": "file",
+											"src": "/C:/Users/Mahid/Downloads/rango.png"
+										}
+									]
+								},
+								"url": {
+									"raw": "http://127.0.0.1:8000/api/v1/applications/",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"api",
+										"v1",
+										"applications",
+										""
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			],
+			"description": "StartFragment\n\n## **Application Types (Forms)**\n\n## **Support three main application types:**\n\n1. New ID Application  \n    \n2. ID Renewal Application  \n    \n3. **Birth Certificate Application**"
+		}
+	]
+}
