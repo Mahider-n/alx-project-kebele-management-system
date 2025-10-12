@@ -215,6 +215,8 @@ postman/kebele-management-system.postman_collection.json
   - Open Postman → Click Import → Select File → Choose the .json file.
 
   - All API endpoints will be available for testing immediately.
+  
+---
 
 ## ⚡ Installation & Setup
 
