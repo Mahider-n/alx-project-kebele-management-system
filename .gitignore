@@ -20,4 +20,3 @@ hospital_proofs
 birth_photos
 # env
 .env
-db.sqlite3
