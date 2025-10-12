@@ -1,4 +1,4 @@
-# 🏛️ Kebele Management System
+# 🏛️ Kebele Management System API
 
 ## 📘 Project Overview
 
