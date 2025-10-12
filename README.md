@@ -196,7 +196,7 @@ Residents stay informed through **real-time notifications**, while administrator
 - **Database:** SQLite (development), PostgreSQL/MySQL (production)
 - **Authentication:** JWT
 - **Email Notifications:** Django `send_mail()`
-- **Deployment Options:** PythonAnywhere
+- **Deployment Options:** Render 
 
 ---
 
@@ -215,7 +215,7 @@ postman/kebele-management-system.postman_collection.json
   - Open Postman → Click Import → Select File → Choose the .json file.
 
   - All API endpoints will be available for testing immediately.
-  
+
 ---
 
 ## ⚡ Installation & Setup
